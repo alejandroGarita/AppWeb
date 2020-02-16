@@ -1,10 +1,8 @@
 @extends('layouts.base')
 
-@section('page_title')
-    Editar contacto
-@endsection
-
 @section('content')
+
+<h1 class="text-center font-weight-light">Editar contacto</h1><br>
 
 <form action="{{ route('contact.update', $contact->id) }}" method="POST">
     @method('PATCH')

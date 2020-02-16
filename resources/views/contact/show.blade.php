@@ -4,13 +4,16 @@
     Datos del contacto
 @endsection
 
-@section('secondary_text')
-    <h5 class="text-center">Nombre: {{ $contact->name . ' ' . $contact->lastName1 }}</h5>
-    <h5 class="text-center">Correo: {{ $contact->mail }}</h5>
-@endsection
-
 @section('content')
 
+    <h1 class="text-center font-weight-lighter">Información del contacto</h1><br>
+    
+    <div class="jumbotron">
+        <p class="lead text-center">
+            <h5 class="text-center">Nombre: {{ $contact->name . ' ' . $contact->lastName1 }}</h5>
+        <h5 class="text-center">Correo: {{ $contact->mail }}</h5>
+        </p>
+    </div>
     
     <h4 class="text-center">¿Desea eliminar este contacto?</h4>
 

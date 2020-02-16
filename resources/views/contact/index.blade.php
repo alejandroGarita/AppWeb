@@ -1,10 +1,8 @@
 @extends('layouts.base')
 
-@section('page_title')
-    Contactos registrados
-@endsection
-
 @section('content')
+
+    <h1 class="text-center font-weight-lighter">Contactos registrados</h1><br>
 
     <a href="{{ route('contact.create') }}" class="btn btn-success active" role="button">Agregar nuevo</a>
     <br><br>

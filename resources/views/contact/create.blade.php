@@ -1,10 +1,8 @@
 @extends('layouts.base')
 
-@section('page_title')
-    Agregar nuevo contacto
-@endsection
-
 @section('content')
+
+<h1 class="text-center font-weight-light">Agregar nuevo contacto</h1><br>
 
 <form action="{{ url('/contact/') }}" method="POST">
     @csrf
