@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <a href="{{ url('/contact/create/') }}" class="btn btn-success active" role="button">Agregar nuevo</a>
+    <a href="{{ route('contact.create') }}" class="btn btn-success active" role="button">Agregar nuevo</a>
     <br><br>
 
     <div class="table-responsive">
@@ -25,7 +25,14 @@
                     <td scope="row">{{ $contact->name }}</td>
                     <td>{{ $contact->lastName1 }}</td>
                     <td>{{ $contact->mail }}</td>
-                    <td><a href="{{ url("/contact/$contact->id") }}">Ver</a></td>
+                    <td>
+                        <a href="{{ route('contact.edit', $contact->id) }}">
+                            <button type="button" class="btn btn-primary">Editar</button>
+                        </a>
+                        <a href="#">
+                            <button type="button" class="btn btn-danger">Eliminar</button>
+                        </a>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

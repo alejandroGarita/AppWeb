@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\ContactFormRequest;
 use App\Contact;
 
 class ContactController extends Controller
@@ -34,15 +35,15 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContactFormRequest $request)
     {
         $contact = new Contact();
 
-        $contact->dni = request('dni');
-        $contact->name = request('name');
-        $contact->lastName1 = request('lastName1');
-        $contact->lastName2 = request('lastName2');
-        $contact->mail = request('mail');
+        $contact->dni = $request->get('dni');
+        $contact->name = $request->get('name');
+        $contact->lastName1 = $request->get('lastName1');
+        $contact->lastName2 = $request->get('lastName2');
+        $contact->mail = $request->get('mail');
 
         $contact->save();
 
@@ -68,7 +69,7 @@ class ContactController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('contact.edit', ['contact' => Contact::findOrFail($id)]);
     }
 
     /**
@@ -78,9 +79,20 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ContactFormRequest $request, $id)
     {
-        //
+        $contact = Contact::findOrFail($id);
+
+        $contact->dni = $request->get('dni');
+        $contact->name = $request->get('name');
+        $contact->lastName1 = $request->get('lastName1');
+        $contact->lastName2 = $request->get('lastName2');
+        $contact->mail = $request->get('mail');
+
+        $contact->update();
+
+        return redirect('/contact/');
+
     }
 
     /**
