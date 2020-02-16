@@ -29,7 +29,7 @@
                         <a href="{{ route('contact.edit', $contact->id) }}">
                             <button type="button" class="btn btn-primary">Editar</button>
                         </a>
-                        <a href="#">
+                        <a href="{{ route('contact.show', $contact->id) }}">
                             <button type="button" class="btn btn-danger">Eliminar</button>
                         </a>
                     </td>

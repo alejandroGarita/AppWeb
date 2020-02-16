@@ -36,7 +36,7 @@
         <div class="jumbotron">
             <h1 class="text-center font-weight-light">@yield('page_title')</h1>
             <hr class="my-2">
-            <p class="lead text-center">Bienvenido(a)</p>
+            <p class="lead text-center">@yield('secondary_text')</p>
         </div>
 
         @yield('content')
