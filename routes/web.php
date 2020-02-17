@@ -1,5 +1,9 @@
 <?php
 
+use App\Message;
+use App\Mail\MessageMail;
+use Illuminate\Support\Facades\Mail;
+
 Route::resource('/contact', 'ContactController');
 
 Auth::routes();

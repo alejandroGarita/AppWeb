@@ -24,7 +24,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Seleccionar archivos</label>
         <div class="col-sm-8">
-            <input type="file" class="" id="files[]" name="files[]" multiple="" required>
+            <input type="file" class="" id="files[]" name="files[]" multiple="" accept="application/pdf,image/jpeg" required>
         </div>
         
         <br>
@@ -47,12 +47,12 @@
                     @foreach ($messages as $message)
                     <tr>
                         <td scope="row">{{ $message->name }}</td>
-                        <td>{{ $message->mailTo }}</td>
+                        <td>{{ $message->contact->mail }}</td>
                         <td>
-                        <a href="{{ url("/messages/$message->id/destroy/") }}">
-                            <button type="button" class="btn btn-danger">Eliminar</button>
-                        </a>
-                    </td>
+                            <a href="{{ url("/messages/$message->id/destroy/") }}">
+                                <button type="button" class="btn btn-danger">Eliminar</button>
+                            </a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
