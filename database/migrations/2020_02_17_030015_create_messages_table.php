@@ -14,14 +14,14 @@ class CreateMessagesTable extends Migration
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('contact_id')->unsigned();
-            $table->string('file_name');
-            $table->boolean('send');
+            $table->string('name');
+            $table->string('path');
+            $table->string('mailTo');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('cascade');
         });
     }
 

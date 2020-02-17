@@ -28,17 +28,4 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function showFiles($id){
-        return User::findOrFail($id)->files;
-    }
-
-    public function uploadFiles(){
-        return view('file.upload');
-    }
-
-    public function storageFiles(Request $request){
-        print_r($request->file('files')[1]->getClientOriginalName());
-
-        return redirect('files/upload');
-    }
 }
