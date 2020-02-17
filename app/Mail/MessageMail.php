@@ -32,7 +32,7 @@ class MessageMail extends Mailable
     public function build()
     {
         return $this->view('mail.message')
-        ->with(['name' => $this->message->contact->name . ' ' . $this->message->lastName1])
+        ->with(['name' => $this->message->contact->name . ' ' . $this->message->contact->lastName1])
         ->attach(asset($this->message->getUrlPath()));
     }
 }

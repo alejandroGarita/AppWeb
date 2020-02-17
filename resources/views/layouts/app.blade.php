@@ -23,6 +23,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavId">
+                @guest @else
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/contact/') }}">Contactos</a>
@@ -31,11 +32,16 @@
                         <a class="nav-link" href="{{ url('/messages/addFiles') }}">Comprobantes</a>
                     </li>
                 </ul>
+                @endguest
+                
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">Registrarse</a>
                         </li>
                     @else
                         <li class="nav-item dropdown">
