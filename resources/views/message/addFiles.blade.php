@@ -1,26 +1,14 @@
 @extends('layouts.app')
 
+@section('title')
+    Enviar comprobantes
+@endsection
+
 @section('content')
-
-<h1 class="text-center font-weight-light">Enviar comprobantes</h1><br>
-
-<div class="row">
-    <div class="offset-sm-3 col-sm-6">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-    </div>
-</div>
 
 <form method="post" action="{{ url('messages/storageFiles') }}" enctype="multipart/form-data">
 	@csrf			
-    
+
     <div class="form-group">
         <label class="col-sm-2 control-label">Seleccionar archivos</label>
         <div class="col-sm-8">
@@ -55,14 +43,20 @@
                         </td>
                     </tr>
                     @endforeach
+
+                    <tr>
+                        <td scope="row"></td>
+                        <td><a href="{{ url('/messages/sendMails/') }}" class="btn btn-primary active" role="button">Enviar comprobantes</a></td>
+                        <td><a href="{{ url('/messages/clear/') }}" class="btn btn-danger" role="button">Vaciar cola</a></td>
+                    </tr>
                 </tbody>
         </table>
     </div>
-
-    <div class="text-center"><a href="{{ url('/messages/sendMails/') }}" class="btn btn-primary active" role="button">Enviar comprobantes</a></div>
+    
     @else
     <br><h3 class="text-center font-weight-light">La cola de envíos está vacía</h3><br><br>
     @endif
 
 </form>
+
 @endsection

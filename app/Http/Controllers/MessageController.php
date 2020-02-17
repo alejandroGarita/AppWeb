@@ -31,12 +31,12 @@ class MessageController extends Controller
     public function storageFiles(Request $request){
 
         $contacts = Contact::all();
-
-        $filesWithoutContact = false;
+        $filesWithoutContact = 0;
 
         foreach($request->file('files') as $file){
             
             // Procesando archivo
+            $contactsForFile = 0;
 
             $array = explode("-", $file->getClientOriginalName());
 
@@ -56,6 +56,8 @@ class MessageController extends Controller
 
                     if($lastName == '' || strtolower($lastName) == strtolower($contact->lastName1)){
 
+                        $contactsForFile++;
+
                         // Crear nuevo mensaje para el contacto
                        
                         $message = new Message();
@@ -66,18 +68,19 @@ class MessageController extends Controller
 
                         $message->save();
 
-                    }else $filesWithoutContact = true;
+                    }
 
-                }else $filesWithoutContact = true;
-                
-
+                }
             }
-            
+
+            if($contactsForFile == 0)
+                $filesWithoutContact++;
+
         }
 
-        if($filesWithoutContact)
-            return redirect('messages/addFiles')->withErrors(['Algunos archivos fueron ignorados por no tener el contacto registrado']);
-        else  return redirect('messages/addFiles');
+        if($filesWithoutContact != 0)
+            return redirect('messages/addFiles')->withErrors([ 'Upps! ' . $filesWithoutContact . ' archivos fueron ignorados por no tener el contacto registrado']);
+        else  return redirect('messages/addFiles')->with('ok', 'Archivos subidos exitosamente');
     }
 
     public function delete($id){
@@ -85,7 +88,7 @@ class MessageController extends Controller
 
         $message->delete();
 
-        return redirect('messages/addFiles')->withErrors(['El mensaje se elimino de la cola de envío']);
+        return redirect('messages/addFiles')->with('ok', 'El mensaje se eliminó de la cola de envío');
     }
 
     public function sendMails(){
@@ -103,7 +106,18 @@ class MessageController extends Controller
             }
         }
 
-        return redirect('messages/addFiles')->withErrors(['Los mensajes se enviaron correctamente']);
+        return redirect('messages/addFiles')->with('ok', 'Los mensajes se enviaron correctamente');
     }
+
+    public function clear(){
+        $messages = Message::all();
+
+        foreach($messages as $message){
+            $message->delete();
+        }
+
+        return redirect('messages/addFiles')->with('ok', 'La cola de envío se vació correctamente');
+    }
+
 
 }

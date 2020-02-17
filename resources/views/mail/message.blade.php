@@ -10,8 +10,10 @@
 
     <h4>Este correo ha sido auto-generado, por favor no responda</h4>
 
+    <h4>Se adjunta el comprobante en formato pdf | jpg</h4>
+
     <hr>
     <p>Sistema de envío de comprobantes</p>
-    <p>2020</p>
+    <p>Todos los derechos reservados <strong>2020</strong></p>
 </body>
 </html>

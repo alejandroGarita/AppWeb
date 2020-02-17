@@ -37,7 +37,7 @@ class ContactController extends Controller
 
         $contact->save();
 
-        return redirect('/contact/');
+        return redirect('/contact/')->with('ok', 'Contacto registrado exitosamente');
     }
 
     public function show($id)
@@ -62,7 +62,7 @@ class ContactController extends Controller
 
         $contact->update();
 
-        return redirect('/contact/');
+        return redirect('/contact/')->with('ok', 'Contacto actualizado exitosamente');;
 
     }
 
@@ -72,6 +72,6 @@ class ContactController extends Controller
 
         $contact->delete();
 
-        return redirect('/contact/');
+        return redirect('/contact/')->with('ok', 'Contacto eliminado exitosamente');;
     }
 }

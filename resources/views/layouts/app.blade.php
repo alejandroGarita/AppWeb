@@ -60,6 +60,31 @@
             </div>
         </nav><br>
 
+        <h1 class="text-center font-weight-light">@yield('title')</h1><br>
+
+        <div class="row">
+            <div class="offset-sm-3 col-sm-6">
+                @if (session('ok'))
+                    <div class="alert alert-success">
+                        {{ session('ok') }}
+                    </div>
+                @endif
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-sm-3 col-sm-6">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+        </div>
+
         @yield('content')
 
 

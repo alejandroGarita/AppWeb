@@ -2,25 +2,13 @@
 
 @section('content')
 
-<h1 class="text-center font-weight-light">Editar contacto</h1><br>
+@section('title')
+Editar contacto
+@endsection
 
 <form action="{{ route('contact.update', $contact->id) }}" method="POST">
     @method('PATCH')
     @csrf
-
-    <div class="row">
-        <div class="offset-sm-4 col-sm-5">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </div>
-    </div>
     
     <div class="row">    
         <div class="offset-sm-4 col-sm-2">

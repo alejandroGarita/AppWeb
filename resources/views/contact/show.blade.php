@@ -1,12 +1,10 @@
 @extends('layouts.app')
 
-@section('page_title')
-    Datos del contacto
+@section('title')
+Información del contacto
 @endsection
 
 @section('content')
-
-    <h1 class="text-center font-weight-lighter">Información del contacto</h1><br>
     
     <div class="jumbotron">
         <p class="lead text-center">
