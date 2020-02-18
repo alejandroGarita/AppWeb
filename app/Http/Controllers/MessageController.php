@@ -21,7 +21,8 @@ class MessageController extends Controller
 
     public function addFiles(){
 
-        $contacts = Contact::all();
+        $user = User::findOrFail(auth()->id());
+        $contacts = $user->contacts;
 
         if($contacts->count() > 0)
             return view('message.addFiles', ['messages' => User::findOrFail(auth()->id())->messages]);
@@ -30,7 +31,9 @@ class MessageController extends Controller
     }
     public function storageFiles(Request $request){
 
-        $contacts = Contact::all();
+        $user = User::findOrFail(auth()->id());
+        $contacts = $user->contacts;
+        
         $filesWithoutContact = 0;
 
         foreach($request->file('files') as $file){
@@ -79,7 +82,7 @@ class MessageController extends Controller
         }
 
         if($filesWithoutContact != 0)
-            return redirect('messages/addFiles')->withErrors([ 'Upps! ' . $filesWithoutContact . ' archivos fueron ignorados por no tener el contacto registrado']);
+            return redirect('messages/addFiles')->withErrors([ 'Upps! ' . $filesWithoutContact . ' archivo(s) fueron ignorados por no tener el contacto registrado']);
         else  return redirect('messages/addFiles')->with('ok', 'Archivos subidos exitosamente');
     }
 

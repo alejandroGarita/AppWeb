@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\ContactFormRequest;
 use App\Contact;
+use App\User;
 
 class ContactController extends Controller
 {
@@ -17,7 +18,8 @@ class ContactController extends Controller
     
     public function index()
     {
-        return view('contact.index', ['contacts' => Contact::all()]);
+        $user = User::findOrFail(auth()->id());
+        return view('contact.index', ['contacts' => $user->contacts]);
     }
 
     public function create()
@@ -30,6 +32,7 @@ class ContactController extends Controller
         $contact = new Contact();
 
         $contact->dni = $request->get('dni');
+        $contact->user_id = auth()->id();
         $contact->name = $request->get('name');
         $contact->lastName1 = $request->get('lastName1');
         $contact->lastName2 = $request->get('lastName2');

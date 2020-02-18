@@ -12,4 +12,9 @@ class Contact extends Model
     public function messages(){
         return $this->hasMany('App\Message');
     }
+
+    // Return the user to whom the contact belongs
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
 }

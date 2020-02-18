@@ -41,5 +41,10 @@ class User extends Authenticatable
     public function messages(){
         return $this->hasMany('App\Message');
     }
+
+    // Return all the contacts of a user
+    public function contacts(){
+        return $this->hasMany('App\Contact');
+    }
     
 }
