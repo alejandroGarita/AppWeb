@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Message extends Model
 {
@@ -17,7 +18,11 @@ class Message extends Model
     }
 
     public function getUrlPath(){
-        return \Storage::url($this->path);
+        return Storage::url($this->path);
+    }
+
+    public function getPath(){
+        return 'storage/' . explode('/', $this->path)[1];
     }
     
 }

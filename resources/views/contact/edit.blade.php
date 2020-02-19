@@ -6,7 +6,7 @@
 Editar contacto
 @endsection
 
-<form action="{{ route('contact.update', $contact->id) }}" method="POST">
+<form action="{{ route('contact.update', $contact->id) }}" onsubmit="loadOnSubmit()" method="POST">
     @method('PATCH')
     @csrf
     

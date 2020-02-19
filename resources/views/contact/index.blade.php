@@ -6,7 +6,7 @@
     Contactos registrados
     @endsection
 
-    <a href="{{ route('contact.create') }}" class="btn btn-success active" role="button">Agregar nuevo</a>
+    <a href="{{ route('contact.create') }}" class="btn btn-success active load" role="button">Agregar nuevo</a>
     <br><br>
 
     @if ($contacts->count() > 0)
@@ -29,10 +29,10 @@
                     <td>{{ $contact->mail }}</td>
                     <td>
                         <a href="{{ route('contact.edit', $contact->id) }}">
-                            <button type="button" class="btn btn-primary">Editar</button>
+                            <button type="button" class="btn btn-primary load">Editar</button>
                         </a>
                         <a href="{{ route('contact.show', $contact->id) }}">
-                            <button type="button" class="btn btn-danger">Eliminar</button>
+                            <button type="button" class="btn btn-danger load">Eliminar</button>
                         </a>
                     </td>
                 </tr>

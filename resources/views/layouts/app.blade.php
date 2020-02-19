@@ -16,6 +16,22 @@
 
     <div class="container">
 
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+            
+                <!-- Modal content-->
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <p class="text-center">Cargando...</p>
+                    </div>
+
+                </div>
+            
+            </div>
+        </div>
+
         <nav class="navbar navbar-expand-sm navbar-light bg-light">
             <a class="navbar-brand" href="{{ url('/home/') }}">Inicio</a>
             <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
@@ -39,9 +55,6 @@
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Registrarse</a>
                         </li>
                     @else
                         <li class="nav-item dropdown">
@@ -99,6 +112,25 @@
 
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+    
+            $(".load").click(function(){
+                $("#myModal").modal({
+                    keyboard: false,
+                    backdrop: 'static'
+                });    
+            });
+    
+        });
+    
+        function loadOnSubmit(){
+            $("#myModal").modal({
+                keyboard: false,
+                backdrop: 'static'
+            }); 
+        }
+    </script>
     @yield('scripts')
 </body>
     

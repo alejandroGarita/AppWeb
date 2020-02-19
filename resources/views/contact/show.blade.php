@@ -17,11 +17,11 @@ Información del contacto
 
     <div class="row"> 
         <div class="offset-sm-4 col-sm-4 text-center">
-            <form action="{{ route('contact.destroy', $contact->id) }}" method="POST">
+            <form action="{{ route('contact.destroy', $contact->id) }}" onsubmit="loadOnSubmit()" method="POST">
                 @csrf
                 @method('DELETE')
                 <input type="submit" class=" btn btn-sm btn-danger" name="create" value="Eliminar">
-                <a href="{{ url('/contact/') }}"><button type="button" class="btn btn-sm btn-secondary">Cancelar</button></a>
+                <a href="{{ url('/contact/') }}"><button type="button" class="btn btn-sm btn-secondary load">Cancelar</button></a>
             </form>
         </div>
     </div>

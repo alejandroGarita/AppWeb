@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 use App\Mail\MessageMail;
 
 use App\User;
@@ -86,39 +89,99 @@ class MessageController extends Controller
         else  return redirect('messages/addFiles')->with('ok', 'Archivos subidos exitosamente');
     }
 
-    public function delete($id){
-        $message = Message::findOrFail($id);
+    public function deleteMessage($messageToDelete){
+        $messages = Message::all();
 
-        $message->delete();
+        $duplicate = false;
+
+        foreach($messages as $message){
+
+            if($message->name == $messageToDelete->name && $message->id != $messageToDelete->id){
+                $duplicate = true;
+            }
+        }
+        
+        // Delete file if not used with another message
+        if($duplicate == false){
+            unlink($messageToDelete->getPath());
+        }
+
+        $messageToDelete->delete();
+    }
+
+    public function delete($id){
+        
+        $this->deleteMessage(Message::findOrFail($id));
 
         return redirect('messages/addFiles')->with('ok', 'El mensaje se eliminó de la cola de envío');
     }
 
     public function sendMails(){
 
-        $messages = Message::all();
+        $user = User::findOrFail(auth()->id());
+        $messages = $user->messages;
 
         foreach($messages as $message){
             
-            try{
-                Mail::to($message->contact->mail)->send(new MessageMail($message));
+            //require '../vendor/autoload.php';	
 
-                $message->delete();
-            }catch(Exeption $e){
-                return redirect('messages/addFiles')->withErrors(['El archivo ' . $message->name . ' no se pudo enviar correctamente, la cola de envío se detuvo' ]);
-            }
+            $mail = new PHPMailer(true); // Passing `true` enables exceptions
+
+			try {
+				// Server settings
+	    	    $mail->SMTPDebug = 0; // Enable verbose debug output
+				$mail->isSMTP(); // Set mailer to use SMTP
+				$mail->Host = 'smtp.gmail.com';	// Specify main and backup SMTP servers
+				$mail->SMTPAuth = true; // Enable SMTP authentication
+				$mail->Username = 'appweb.laravel@gmail.com'; // SMTP username
+				$mail->Password = 'miyvmophdypcfhyj'; // SMTP password
+				$mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
+				$mail->Port = 587; // TCP port to connect to
+
+                $mail->SMTPOptions = array(
+                    'ssl' => array(
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true
+                    )
+                );
+				//Recipients
+				$mail->setFrom('appweb.laravel@gmail.com', 'Admin');
+				$mail->addAddress($message->contact->mail, $message->contact->name);// Add a recipient
+				$mail->addReplyTo('appweb.laravel@gmail.com', 'Admin');
+
+				//Attachments (optional)
+				$mail->addAttachment($message->getPath(), $message->name); // Add attachments
+
+				//Content
+				$mail->isHTML(true); // Set email format to HTML
+				$mail->Subject = 'Envio de comprobantes';
+				$mail->Body = 'Por favor no responda a este correo.'; // message
+
+				$mail->send();
+                
+			} catch (Exception $e) {
+				return redirect('messages/addFiles')->withErrors('No se pudieron enviar los correos.');
+			}
+
+                // End of PHPMailer
+
+                // Delete message file
+
+                $this->deleteMessage($message);
+
         }
 
         return redirect('messages/addFiles')->with('ok', 'Los mensajes se enviaron correctamente');
     }
 
+    // Delete all messages of an user
     public function clear(){
-        $messages = Message::all();
+        $messages = User::findOrFail(auth()->id())->messages;
 
         foreach($messages as $message){
-            $message->delete();
+            $this->deleteMessage($message);
         }
-
         return redirect('messages/addFiles')->with('ok', 'La cola de envío se vació correctamente');
     }
 

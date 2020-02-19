@@ -6,7 +6,7 @@
 Agregar nuevo contacto
 @endsection
 
-<form action="{{ url('/contact/') }}" method="POST">
+<form action="{{ url('/contact/') }}" onsubmit="loadOnSubmit()" method="POST">
     @csrf
     
     <div class="row">    

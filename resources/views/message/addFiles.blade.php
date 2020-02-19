@@ -6,13 +6,13 @@
 
 @section('content')
 
-<form method="post" action="{{ url('messages/storageFiles') }}" enctype="multipart/form-data">
+<form method="post" onsubmit="loadOnSubmit()" action="{{ url('messages/storageFiles') }}" enctype="multipart/form-data">
 	@csrf			
 
     <div class="form-group">
         <label class="col-sm-2 control-label">Seleccionar archivos</label>
         <div class="col-sm-8">
-            <input type="file" class="" id="files[]" name="files[]" multiple="" accept="application/pdf,image/jpeg" required>
+            <input type="file" id="files[]" name="files[]" multiple="" accept="application/pdf,image/jpeg" required>
         </div>
         
         <br>
@@ -38,7 +38,7 @@
                         <td>{{ $message->contact->mail }}</td>
                         <td>
                             <a href="{{ url("/messages/$message->id/destroy/") }}">
-                                <button type="button" class="btn btn-danger">Eliminar</button>
+                                <button type="button" class="btn btn-danger load">Eliminar</button>
                             </a>
                         </td>
                     </tr>
@@ -46,8 +46,8 @@
 
                     <tr>
                         <td scope="row"></td>
-                        <td><a href="{{ url('/messages/sendMails/') }}" class="btn btn-primary active" role="button">Enviar comprobantes</a></td>
-                        <td><a href="{{ url('/messages/clear/') }}" class="btn btn-danger" role="button">Vaciar cola</a></td>
+                        <td><a href="{{ url('/messages/sendMails/') }}"  class="btn btn-primary active load" role="button">Enviar comprobantes</a></td>
+                        <td><a href="{{ url('/messages/clear/') }}" class="btn btn-danger load" role="button">Vaciar cola</a></td>
                     </tr>
                 </tbody>
         </table>
